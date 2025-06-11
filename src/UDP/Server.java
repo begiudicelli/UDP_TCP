@@ -12,7 +12,6 @@ public class Server {
         try {
             socket = new DatagramSocket(PORT);
         } catch (SocketException e) {
-            System.err.println();
             throw new RuntimeException("Error opening socket on port: " + PORT, e);
         }
     }
