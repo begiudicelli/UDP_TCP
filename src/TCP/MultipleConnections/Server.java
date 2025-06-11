@@ -1,4 +1,6 @@
-package TCP.OneConnection;
+package TCP.MultipleConnections;
+
+import TCP.MathUtils;
 
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -26,7 +28,7 @@ public class Server {
                 Socket request = serverSocket.accept();
                 System.out.println("New client connected: " + request.getInetAddress().getHostAddress() + ": " + request.getPort());
 
-                Message msg = receiveMessage(request);
+                UDPMessage msg = receiveMessage(request);
                 boolean result = processMessage(msg);
                 sendResponse(request, result);
 
@@ -41,14 +43,14 @@ public class Server {
 
     }
 
-    private static Message receiveMessage(Socket socket) throws IOException, ClassNotFoundException {
+    private static UDPMessage receiveMessage(Socket socket) throws IOException, ClassNotFoundException {
         ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
-        Message msg = (Message) in.readObject();
+        UDPMessage msg = (UDPMessage) in.readObject();
         System.out.println("Recebido: " + msg.getFirstNumber() + ", " + msg.getSecondNumber());
         return msg;
     }
 
-    private static boolean processMessage(Message msg){
+    private static boolean processMessage(UDPMessage msg){
         int a = msg.getFirstNumber();
         int b = msg.getSecondNumber();
         return MathUtils.areCoprime(a, b);

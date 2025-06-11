@@ -1,4 +1,4 @@
-package TCP.OneConnection;
+package TCP.MultipleConnections;
 
 import java.io.*;
 import java.net.Socket;
@@ -12,7 +12,7 @@ public class Client {
     public void sendMessages() {
         for (int i = 0; i < NUM_REQUESTS; i++) {
             try (Socket socket = createConnection()) {
-                Message msg = generateMessage();
+                UDPMessage msg = generateMessage();
                 sendMessage(socket, msg);
                 boolean response = receiveResponse(socket);
 
@@ -31,11 +31,11 @@ public class Client {
         return new Socket(HOSTNAME, PORT);
     }
 
-    private Message generateMessage() {
-        return new Message();
+    private UDPMessage generateMessage() {
+        return new UDPMessage();
     }
 
-    private void sendMessage(Socket socket, Message msg) throws IOException {
+    private void sendMessage(Socket socket, UDPMessage msg) throws IOException {
         ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
         out.writeObject(msg);
         out.flush();

@@ -1,4 +1,4 @@
-package TCP.OneConnection;
+package TCP;
 
 public class MathUtils {
     public static boolean areCoprime(int a, int b) {
@@ -9,4 +9,6 @@ public class MathUtils {
         if (b == 0) return a;
         return gcd(b, a % b);
     }
+
+
 }
